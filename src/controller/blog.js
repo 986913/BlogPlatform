@@ -1,20 +1,13 @@
+const { exec } = require('../db/mysql');
+
 const getList = (author, keyword) => {
-  return [
-    {
-      id: 1,
-      title: '标题A',
-      content: '内容A',
-      createTime: 1617123456789,
-      author: 'zhangsan',
-    },
-    {
-      id: 2,
-      title: '标题B',
-      content: '内容B',
-      createTime: 2617123456789,
-      author: 'lisi',
-    },
-  ];
+  let sql = `SELECT * from blogs WHERE 1=1 `;
+  if (author) sql += `AND author='${author}' `;
+  if (keyword) sql += `AND title LIKE '%${keyword}%' `;
+  sql += `ORDER BY createtime DESC;`;
+
+  // 返回 promise
+  return exec(sql);
 };
 
 const getBlogDetail = (id) => {

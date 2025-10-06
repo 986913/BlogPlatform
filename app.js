@@ -45,9 +45,11 @@ const serverHandler = (req, res) => {
     req.body = postData;
 
     // 处理 blog 路由
-    const blogData = handleBlogRouter(req, res);
-    if (blogData) {
-      res.end(JSON.stringify(blogData)); // 设置返回内容
+    const result = handleBlogRouter(req, res);
+    if (result) {
+      result.then((blogData) => {
+        res.end(JSON.stringify(blogData)); // 设置返回内容
+      });
       return;
     }
 

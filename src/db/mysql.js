@@ -24,6 +24,7 @@ function exec(sql) {
       resolve(results);
     });
   });
+  // 返回 promise
   return promise;
 }
 
