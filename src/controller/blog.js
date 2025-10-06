@@ -45,8 +45,8 @@ const updateBlog = (id, blogData = {}) => {
   });
 };
 
-const delBlog = (id) => {
-  let sql = `DELETE FROM blogs WHERE id=${id}`;
+const delBlog = (id, author) => {
+  let sql = `DELETE FROM blogs WHERE id=${id} AND author='${author}'`;
 
   // 返回 promise
   return exec(sql).then((delData) => {
