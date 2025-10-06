@@ -66,5 +66,3 @@ const serverHandler = (req, res) => {
 };
 
 module.exports = serverHandler;
-
-// process.env.NODE_ENV
