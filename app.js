@@ -5,7 +5,7 @@ const querystring = require('querystring');
 // 用于处理 post data
 const getPostData = (req) => {
   const promise = new Promise((resolve, reject) => {
-    if (req.method !== 'POST') {
+    if (req.method !== 'POST' && req.method !== 'PUT') {
       resolve({});
       return;
     }

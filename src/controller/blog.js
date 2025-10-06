@@ -11,38 +11,56 @@ const getList = (author, keyword) => {
 };
 
 const getBlogDetail = (id) => {
-  return {
-    id: 1,
-    title: '标题A',
-    content: '内容A',
-    createTime: 1617123456789,
-    author: 'zhangsan',
-  };
+  let sql = `SELECT * from blogs WHERE id='${id}' `;
+  // 返回 promise
+  return exec(sql).then((rows) => {
+    return rows[0];
+  });
 };
 
-const newblog = (blogData = {}) => {
-  // blogData 是一个博客对象，包含 title content 属性
-  // console.log('new blog', blogData);
-  return {
-    id: 3, // 新建博客，插入到数据表里的 id
-  };
+const newBlog = (blogData = {}) => {
+  let sql = `INSERT INTO blogs (title, content, author, createtime) VALUES ('${
+    blogData.title
+  }', '${blogData.content}', '${blogData.author}', ${Date.now()})`;
+
+  // 返回 promise
+  return exec(sql).then((insertData) => {
+    // insertData 是插入数据后的对象，包含 insertId 属性
+    console.log('insertData is ', insertData);
+    return {
+      id: insertData.insertId, // 新建博客，插入到数据表里的 id
+    };
+  });
 };
 
 const updateBlog = (id, blogData = {}) => {
-  // 更新博客，id 就是要更新的博客的 id
-  // console.log('update blog', id, blogData);
-  return true; // 成功返回 true，失败返回 false
+  let sql = `UPDATE blogs SET title='${blogData.title}', content='${blogData.content}' WHERE id=${id}`;
+
+  // 返回 promise
+  return exec(sql).then((updateData) => {
+    // updateData 是更新数据后的对象，包含 affectedRows 属性
+    console.log('updateData is ', updateData);
+    if (updateData.affectedRows > 0) return true; // 更新成功
+    return false; // 更新失败
+  });
 };
 
 const delBlog = (id) => {
-  // 删除博客，id 就是要删除的博客的 id
-  return true; // 成功返回 true，失败返回 false
+  let sql = `DELETE FROM blogs WHERE id=${id}`;
+
+  // 返回 promise
+  return exec(sql).then((delData) => {
+    // delData 是删除数据后的对象，包含 affectedRows 属性
+    console.log('delData is ', delData);
+    if (delData.affectedRows > 0) return true; // 删除成功
+    return false; // 删除失败
+  });
 };
 
 module.exports = {
   getList,
   getBlogDetail,
-  newblog,
+  newBlog,
   updateBlog,
   delBlog,
 };

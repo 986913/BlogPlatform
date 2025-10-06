@@ -1,7 +1,7 @@
 const {
   getList,
   getBlogDetail,
-  newblog,
+  newBlog,
   updateBlog,
   delBlog,
 } = require('../controller/blog');
@@ -25,32 +25,39 @@ const handleBlogRouter = (req, res) => {
 
   // 博客详情
   if (method === 'GET' && req.path === '/api/blog/detail') {
-    const detailData = getBlogDetail(id);
-    return new SuccessModel(detailData);
+    const result = getBlogDetail(id);
+    return result.then((detailData) => {
+      return new SuccessModel(detailData);
+    });
   }
 
   // 新建一篇博客
   if (method === 'POST' && req.path === '/api/blog/new') {
-    const data = newblog(req.body);
-    return new SuccessModel(data);
+    const author = 'zhangsan'; // 假数据，待开发登录时再改成真实数据
+    req.body.author = author; // 给 req.body 添加 author 属性
+
+    const result = newBlog(req.body);
+    return result.then((data) => {
+      return new SuccessModel(data);
+    });
   }
 
   // 更新一篇博客
-  if (method === 'POST' && req.path === '/api/blog/update') {
-    const response = updateBlog(id, req.body);
-    if (!response) {
-      return new ErrorModel('更新博客失败');
-    }
-    return new SuccessModel(data);
+  if (method === 'PUT' && req.path === '/api/blog/update') {
+    const result = updateBlog(id, req.body);
+    return result.then((data) => {
+      if (!data) return new ErrorModel('更新博客失败');
+      return new SuccessModel(data);
+    });
   }
 
   // 删除一篇博客
   if (method === 'DELETE' && req.path === '/api/blog/del') {
-    const response = delBlog(id);
-    if (!response) {
-      return new ErrorModel('删除博客失败');
-    }
-    return new SuccessModel(response);
+    const result = delBlog(id);
+    return result.then((response) => {
+      if (!response) return new ErrorModel('删除博客失败');
+      return new SuccessModel(response);
+    });
   }
 };
 
