@@ -1,6 +1,6 @@
 const { exec } = require('../db/mysql');
 
-const loginCheck = (username, password) => {
+const login = (username, password) => {
   // 这里是模拟登录，实际项目中要查询数据库
   let sql = `SELECT username, realname FROM users WHERE username='${username}' AND password='${password}'`;
 
@@ -10,4 +10,4 @@ const loginCheck = (username, password) => {
   });
 };
 
-module.exports = { loginCheck };
+module.exports = { login };
