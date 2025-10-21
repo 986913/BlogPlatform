@@ -1,4 +1,5 @@
 const { login } = require('../controller/user');
+const { set, get } = require('../db/myRedis');
 const { SuccessModel, ErrorModel } = require('../model/resModel');
 
 const handlerUserRouter = (req, res) => {
@@ -15,7 +16,9 @@ const handlerUserRouter = (req, res) => {
       // 登录成功，设置 session
       req.session.username = data.username;
       req.session.realname = data.realname;
-      console.log('req.session is', req.session);
+      // 同步到 redis 中
+      set(req.sessionId, req.session);
+
       return new SuccessModel(
         `${data.username} 登录成功,session已设置: ${JSON.stringify(
           req.session

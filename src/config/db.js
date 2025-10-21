@@ -1,7 +1,8 @@
 const env = process.env.NODE_ENV; // 环境变量
 
-// 配置mysql
+// 配置mysql和redis
 let MYSQL_CONF;
+let REDIS_CONF;
 
 if (env === 'dev') {
   MYSQL_CONF = {
@@ -9,6 +10,10 @@ if (env === 'dev') {
     user: 'root', // 数据库用户名
     password: 'moremoney888', // 数据库密码
     database: 'myblog', // 连接的数据库名称
+  };
+  REDIS_CONF = {
+    host: '127.0.0.1', // redis 地址
+    port: 6379, // redis 端口
   };
 }
 
@@ -20,8 +25,14 @@ if (env === 'productiogn') {
     password: 'moremoney888',
     database: 'myblog',
   };
+  // 暂时写dev一样的配置, 需要改成线上的Redis;
+  REDIS_CONF = {
+    host: '127.0.0.1',
+    port: 6379,
+  };
 }
 
 module.exports = {
   MYSQL_CONF,
+  REDIS_CONF,
 };
