@@ -42,7 +42,7 @@ const serverHandler = (req, res) => {
   // 设置返回格式为 JSON
   res.setHeader('Content-Type', 'application/json');
 
-  // 实现跨域
+  /*************** 实现跨域 *************** /
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // 允许跨域传递cookie
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*'); // 允许跨域的origin, *代表允许所有，谨慎使用
   // 允许的请求方法
@@ -50,6 +50,7 @@ const serverHandler = (req, res) => {
     'Access-Control-Allow-Methods',
     'GET, POST, PUT, DELETE, OPTIONS'
   );
+  /*****************************************/
 
   const url = req.url;
   // 获取路径
