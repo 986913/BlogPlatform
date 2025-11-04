@@ -11,6 +11,18 @@ const getCookieExpires = () => {
 };
 
 // 用于处理 post data
+/**
+ * Parse JSON body from POST / PUT HTTP requests's body
+ * @param {IncomingMessage} req - Node.js HTTP request object
+ * @returns {Promise<Object>} A Promise that resolves to parsed JSON object
+ *
+ * @example
+ * getPostData(req).then(body => {
+ *   console.log(body);
+ *   // If request body is: { "name": "Mingyue", "age": 25 }
+ *   // Then body will be: { name: "Mingyue", age: 25 }
+ * });
+ */
 const getPostData = (req) => {
   const promise = new Promise((resolve, reject) => {
     if (req.method !== 'POST' && req.method !== 'PUT') {
