@@ -3,7 +3,7 @@ const path = require('path');
 
 // 生成 Write Stream 对象
 function createWriteStream(fileName) {
-  const fullFileName = path.join(__dirname, '../../logs', fileName);
+  const fullFileName = path.join(__dirname, '../../logs', fileName); // 日志文件的完整路径: Users/mingyueliu/Documents/GitHub/BlogPlatform/logs/access.log
   // 使用流式写入, 写入文件的stream对象
   const writeStream = fs.createWriteStream(fullFileName, { flags: 'a' }); // 'a' 代表 append，追加写入
   return writeStream;
