@@ -31,4 +31,5 @@ function exec(sql) {
 // 导出连接对象
 module.exports = {
   exec,
+  escape: mysql.escape, // 导出 mysql自带带 escape 方法，用于防止 SQL 注入
 };
